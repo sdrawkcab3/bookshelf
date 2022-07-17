@@ -33,6 +33,7 @@ class BooksController < ApplicationController
   # POST /books or /books.json
   def create
     #@book = Book.new(book_params)
+  
     @book = current_user.books.build(book_params)
 
     respond_to do |format|
@@ -82,6 +83,6 @@ class BooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.require(:book).permit(:title, :authors, :publisher, :edition, :pages, :user_id)
+      params.require(:book).permit(:title, :authors, :publisher, :edition, :pages, :user_id, :isbn, :cover_link)
     end
 end

@@ -1,15 +1,26 @@
-<div class="card w-50 shadow-lg p-3 mb-5 bg-body rounded">
-  <div class="card-header">
-    <h3> <%= @book.title %> </h3>
-    <h5> <%= @book.authors %> </h5>
-  </div>
-  <div class="card-body">
-    <p class="card-text text-muted"> <%= @book.publisher %> </p>
-    <p class="card-text text-muted"> <%= @book.edition %>  |  <%= @book.pages %> </p>
-    <%= link_to "Back to books", books_path, class: "btn btn-dark" %>
-    <%= link_to "Edit this book", edit_book_path(@book), class: "btn btn-secondary" %>
-  </div>
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+
+    <div class="col-md-8">
+      <div class="card-body">
+        <div class="card-header">
+          <h3> <%= @book.title %> </h3>
+          <h5> <%= @book.authors %> </h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text text-muted"> <%= @book.publisher %> </p>
+          <p class="card-text text-muted"> <%= @book.edition %>  |  <%= @book.pages %> </p>
+          <p class="card-text text-muted"> ISBN: <%= @book.isbn %> </p>
+          <%= link_to "Back to books", books_path, class: "btn btn-dark" %>
+          <%= link_to "Edit this book", edit_book_path(@book), class: "btn btn-secondary" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <img src="https://edit.org/images/cat/book-covers-big-2019101610.jpg" class="img-fluid rounded-end" alt="...">
+    </div>  </div>
 </div>
+
 <br/>
 <div>
   <p><em>Warning:</em> Deletion cannot be undone</p>
@@ -17,7 +28,7 @@
 <div>
 <p>
   <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-    Ok, I want to destroy this book
+    Ok, I want to delete this book
   </button>
 </p>
 <div class="collapse" id="collapseExample">

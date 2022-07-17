@@ -1,9 +1,10 @@
-<%= form_with(model: scan) do |form| %>
+<%= form_with(model: book) do |form| %>
 
   <div class="field form-group">
     <% form.label :isbn, style: "display: block" %>
     <%= number_field :isbn, class: "form-control" %>
     <%= form.submit "Search", class: 'btn btn-primary btn-sm' %>
+
   </div>
-    
+
 <% end %>

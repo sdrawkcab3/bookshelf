@@ -37,12 +37,17 @@
   </div>
 
   <div class="field form-group">
+    <% form.label :isbn, style: "display: block" %>
+    <%= form.text_field :isbn, class: "form-control", placeholder: "ISBN 10 or 13" %>
+  </div>
+
+  <div class="field form-group">
     <%= form.number_field :user_id, id: :books_user_id, value: current_user.id, type: :hidden %>
   </div>
 
 
 <br/>
   <div>
-    <%= form.submit class: 'btn btn-secondary' %>
+    <%= form.submit class: 'btn btn-outline-secondary' %>
   </div>
 <% end %>
