@@ -1,0 +1,28 @@
+<div class="card w-50 shadow-lg p-3 mb-5 bg-body rounded">
+  <div class="card-header">
+    <h3> <%= @book.title %> </h3>
+    <h5> <%= @book.authors %> </h5>
+  </div>
+  <div class="card-body">
+    <p class="card-text text-muted"> <%= @book.publisher %> </p>
+    <p class="card-text text-muted"> <%= @book.edition %>  |  <%= @book.pages %> </p>
+    <%= link_to "Back to books", books_path, class: "btn btn-dark" %>
+    <%= link_to "Edit this book", edit_book_path(@book), class: "btn btn-secondary" %>
+  </div>
+</div>
+<br/>
+<div>
+  <p><em>Warning:</em> Deletion cannot be undone</p>
+</div>
+<div>
+<p>
+  <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Ok, I want to destroy this book
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+
+    <%= button_to "Destroy this book", @book, method: :delete, class: 'btn btn-outline-danger btn-sm' %>
+
+</div>
+</div>

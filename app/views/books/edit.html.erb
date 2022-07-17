@@ -1,0 +1,10 @@
+<h1>Editing book</h1>
+<br/>
+<%= render "form", book: @book %>
+
+<br>
+
+<div>
+  <%= link_to "Back to books", books_path, class: "btn btn-dark" %>
+  <%= link_to "Show this book", @book, class: "btn btn-info" %>
+</div>

@@ -1,0 +1,68 @@
+{"ISBN:0767908163":
+  {"url": "https://openlibrary.org/books/OL8064515M/The_Golden_Ratio",
+    "key": "/books/OL8064515M",
+    "title": "The Golden Ratio",
+    "subtitle": "The Story of PHI, the World's Most Astonishing Number",
+    "authors": [{"url": "https://openlibrary.org/authors/OL2738077A/Mario_Livio", "name": "Mario Livio"}],
+    "number_of_pages": 304,
+    "weight": "8 ounces",
+    "identifiers": {
+      "goodreads": ["24081"],
+      "librarything": ["6408"],
+      "isbn_10": ["0767908163"],
+      "isbn_13": ["9780767908160"],
+      "openlibrary": ["OL8064515M"]},
+    "publishers": [{"name": "Broadway"}],
+    "publish_date": "September 23, 2003",
+    "subjects": [
+      {"name": "Golden section", "url": "https://openlibrary.org/subjects/golden_section"},
+      {"name": "Mathematics", "url": "https://openlibrary.org/subjects/mathematics"},
+      {"name": "Nonfiction", "url": "https://openlibrary.org/subjects/nonfiction"},
+      {"name": "Plane Geometry", "url": "https://openlibrary.org/subjects/plane_geometry"},
+      {"name": "Ratio and proportion", "url": "https://openlibrary.org/subjects/ratio_and_proportion"},
+      {"name": "Nombre d'or", "url": "https://openlibrary.org/subjects/nombre_d'or"},
+      {"name": "Plane geometry", "url": "https://openlibrary.org/subjects/plane_geometry"},
+      {"name": "History", "url": "https://openlibrary.org/subjects/history"}],
+    "excerpts": [{"text": "The famous British physicist Lord Kelvin (William Thomson; 1824-1907), after whom the degrees in the absolute temperature scale are named, once said in a lecture: \"When you cannot express it in numbers, your knowledge is of a meager and unsatisfactory kind.\"", "comment": "", "first_sentence": true}],
+    "ebooks": [{"preview_url": "https://archive.org/details/goldenratio00mari", "availability": "borrow", "formats": {}, "borrow_url": "https://openlibrary.org/books/OL8064515M/The_Golden_Ratio/borrow", "checkedout": false}],
+    "cover": {"small": "https://covers.openlibrary.org/b/id/527996-S.jpg", "medium": "https://covers.openlibrary.org/b/id/527996-M.jpg", "large": "https://covers.openlibrary.org/b/id/527996-L.jpg"}
+   }
+  }
+
+json_object =
+-title info]["title"]
+authors = []
+for info['authors'].each do |author|
+  authors.push[]
+-authors info['authors'][0]['name']
+end
+-publisher info['publishers'][0]['name']
+-edition info['publish_date']
+-pages info['number_of_pages']
+-medium info['cover']['medium']
+
+LOOKUP
+<div>
+  <% uri = URI.parse("https://openlibrary.org/api/books?bibkeys=ISBN:0767908163&jscmd=data&format=json") %>
+  <% response = Net::HTTP.get_response(uri) %>
+  <% parsed_json = JSON.parse(response.body) %>
+  <% info = parsed_json["ISBN:0767908163"] %>
+  <%= info['cover' :medium] %>
+</div>
+
+
+<div>
+  <% uri = URI.parse("https://openlibrary.org/api/books?bibkeys=ISBN:9780767908160&jscmd=data&format=json") %>
+  <% response = Net::HTTP.get_response(uri) %>
+  <% parsed_json = JSON.parse(response.body) %>
+  <% info = parsed_json["ISBN:9780767908160"] %>
+  <%= image_tag info['cover']['medium'] %>
+</div>
+9780767908160
+
+
+<%= form_with method: :post, action: "" do |form| %>
+  <%= form.label :query, "Search for:" %>
+  <%= number_field_tag :isbn, class: "form-control", autofocus: true %>
+  <%= form.submit "Search", class: 'btn btn-primary btn-sm' %>
+<% end %>
