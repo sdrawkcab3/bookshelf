@@ -14,15 +14,7 @@ class BooksController < ApplicationController
 
   # GET /books/new
   def new
-    require 'json'
-    require 'net/http'
-    require 'uri'
-    #@book = Book.new
     @book = current_user.books.build
-
-    #@isbn = params[:isbn] ||= 'none'
-
-
   end
 
   # GET /books/1/edit
@@ -33,7 +25,7 @@ class BooksController < ApplicationController
   # POST /books or /books.json
   def create
     #@book = Book.new(book_params)
-  
+
     @book = current_user.books.build(book_params)
 
     respond_to do |format|

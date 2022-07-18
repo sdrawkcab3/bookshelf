@@ -66,3 +66,46 @@ LOOKUP
   <%= number_field_tag :isbn, class: "form-control", autofocus: true %>
   <%= form.submit "Search", class: 'btn btn-primary btn-sm' %>
 <% end %>
+
+if @book.isbn? do
+
+  <% uri = URI.parse("https://openlibrary.org/api/books?bibkeys=ISBN:9780767908160&jscmd=data&format=json") %>
+  <% response = Net::HTTP.get_response(uri) %>
+  <% parsed_json = JSON.parse(response.body) %>
+  <% info = parsed_json["ISBN:9780767908160"] %>
+
+  <% for info['authors'].each do |author|
+    authors.push[author][0]['name']]
+  <% end %>
+  <% for info['publishers'].each do |publisher|
+    publishers.push[publisher][0]['name']]
+  <% end %>
+
+  @book = current_user.books.build(
+    title: info["title"],
+    authors: authors,
+    publisher: publishers,
+    edition: info['publish_date'],
+    pages: info['number_of_pages'],
+    isbn: book.isbn,
+    cover_link: info['cover']['medium'],
+    user_id: current_user)
+end
+
+
+
+=begin
+      for info['publishers'].each do |publisher|
+        publishers.push[publisher][0]['name']
+      end
+
+      @book = current_user.books.build(
+        title: info["title"],
+        authors: authors,
+        publisher: publishers,
+        edition: info['publish_date'],
+        pages: info['number_of_pages'],
+        isbn: book.isbn,
+        cover_link: info['cover']['medium'],
+        user_id: current_user)
+=end

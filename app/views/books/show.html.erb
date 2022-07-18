@@ -17,7 +17,11 @@
       </div>
     </div>
     <div class="col-md-4">
-      <img src="https://edit.org/images/cat/book-covers-big-2019101610.jpg" class="img-fluid rounded-end" alt="...">
+      <% if @book.cover_link != nil %>
+      <%= image_tag (@book.cover_link), class: 'img-fluid rounded-end' %>
+      <% else %>
+      <% image_tag ("https://cpi.studiod.com/www_ehow_com/i.ehow.com/images/a07/bd/i2/create-fake-book-cover-800x800.jpg"), class: 'img-fluid rounded-end' %>
+      <% end %>
     </div>  </div>
 </div>
 

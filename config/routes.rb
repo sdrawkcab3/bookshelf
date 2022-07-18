@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'scan/new'
   devise_for :users
   resources :books
   #get 'home/index'

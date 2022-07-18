@@ -1,10 +1,10 @@
-<%= form_with(model: book) do |form| %>
-  <% if book.errors.any? %>
+<%= form_with(model: @book) do |form| %>
+  <% if @book.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h2>
 
       <ul>
-        <% book.errors.each do |error| %>
+        <% @book.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -45,9 +45,12 @@
     <%= form.number_field :user_id, id: :books_user_id, value: current_user.id, type: :hidden %>
   </div>
 
+  <div class="field form-group">
+    <%= form.text_field :cover_link, type: :hidden %>
+  </div>
 
 <br/>
   <div>
-    <%= form.submit class: 'btn btn-outline-secondary' %>
+    <%= form.submit class: 'btn btn-outline-secondary', :name => 'submit_info' %>
   </div>
 <% end %>
