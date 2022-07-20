@@ -3,6 +3,10 @@ class BooksController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :correct_user, only: [:edit, :update, :destroy]
 
+  require 'json'
+  require 'net/http'
+  require 'uri'
+  
   # GET /books or /books.json
   def index
     @books = Book.all
@@ -26,7 +30,9 @@ class BooksController < ApplicationController
   def create
     #@book = Book.new(book_params)
 
-    @book = current_user.books.build(book_params)
+    @book = current_user.books.build(book_params) if manually_adding?
+
+    @book = book_from_scan(params[:isbn]) if searching_by_isbn?
 
     respond_to do |format|
       if @book.save
@@ -69,6 +75,15 @@ class BooksController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def searching_by_isbn?
+      params[:commit] == "Search"
+    end
+
+    def manually_adding?
+      params[:commit] == "Create Book"
+    end
+
+
     def set_book
       @book = Book.find(params[:id])
     end
@@ -77,4 +92,36 @@ class BooksController < ApplicationController
     def book_params
       params.require(:book).permit(:title, :authors, :publisher, :edition, :pages, :user_id, :isbn, :cover_link)
     end
-end
+
+    def book_from_scan(isbn)
+
+      isbn_link = "https://openlibrary.org/api/books?bibkeys=ISBN:"+isbn+"&jscmd=data&format=json"
+      uri = URI.parse(isbn_link)
+      response = Net::HTTP.get_response(uri)
+      parsed_json = JSON.parse(response.body)
+      info = parsed_json["ISBN:"+isbn]
+
+      authors = join_field(info['authors'])
+      publishers = join_field(info['publishers'])
+
+      @book = current_user.books.build(
+        title: info['title'],
+        authors: authors,
+        publisher: publishers,
+        edition: info['publish_date'],
+        pages: info['number_of_pages'],
+        isbn: isbn,
+        cover_link: info['cover']['medium'],
+        user_id: current_user)
+    end
+
+    def join_field(field)
+      field.map do |a|
+        "#{a['name']}"
+      end.join
+    end
+
+
+  end #end class
+
+#after_action :isbn_to_book, only: [:create], unless: -> { @book.nil? }

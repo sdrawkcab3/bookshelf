@@ -109,3 +109,17 @@ end
         cover_link: info['cover']['medium'],
         user_id: current_user)
 =end
+
+
+=begin
+    test = true
+    if test
+      uri = URI.parse("https://openlibrary.org/api/books?bibkeys=ISBN:9780767908160&jscmd=data&format=json")
+      response = Net::HTTP.get_response(uri)
+      parsed_json = JSON.parse(response.body)
+      @info = parsed_json["ISBN:9780767908160"]
+      @aa = @info['authors']
+
+      @aa.each { |a| @author.push( @aa[a]['name'] ) }
+    end
+=end
